@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>mate pack</title>
 
 <style>
@@ -16,6 +16,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
     color: white;
+    touch-action: manipulation;
     animation: backgroundPulse 10s ease-in-out infinite alternate;
     transition: background 0.5s ease;
 }
@@ -251,6 +252,63 @@ button:active { transform: translateY(0); }
 @keyframes drift        { 0%,100% { transform: rotateY(180deg) translateX(0); } 50% { transform: rotateY(180deg) translateX(8px); } }
 @keyframes flarePulse   { 0%,100% { box-shadow: 0 0 20px rgba(255,110,204,.5), inset 0 0 20px rgba(255,110,204,.12); } 50% { box-shadow: 0 0 80px rgba(255,110,204,.9), inset 0 0 40px rgba(255,110,204,.25); } }
 
+/* --- UNIQUE HATCHING ANIMATIONS --- */
+@keyframes natureMythic {
+    0% { filter: brightness(0) blur(10px); transform: rotateY(180deg) scale(0.5); opacity: 0; }
+    10% { opacity: 1; }
+    30% { filter: brightness(10) blur(0); box-shadow: 0 0 150px #ffff00; transform: rotateY(180deg) scale(1.4); }
+    60% { filter: brightness(2); transform: rotateY(180deg) scale(0.9); }
+    100% { filter: brightness(1); transform: rotateY(180deg) scale(1.08); opacity: 1; }
+}
+.anim-nature-mythic { animation: natureMythic 2.5s cubic-bezier(.17,.67,.83,.67) forwards, glow 1.5s ease-in-out infinite alternate; }
+
+@keyframes voidUltimate {
+    0% { filter: brightness(0) contrast(2); transform: rotateY(180deg) scale(5) rotate(180deg); opacity: 0; }
+    20% { opacity: 1; filter: brightness(0.1); transform: rotateY(180deg) scale(0.2) rotate(-180deg); }
+    50% { filter: brightness(15) hue-rotate(280deg); transform: rotateY(180deg) scale(1.8); }
+    80% { transform: rotateY(180deg) scale(0.95); }
+    100% { filter: brightness(1); transform: rotateY(180deg) scale(1.08); opacity: 1; }
+}
+.anim-void-ultimate { animation: voidUltimate 3s cubic-bezier(.17,.67,.83,.67) forwards; }
+
+@keyframes cyberGodly {
+    0% { clip-path: inset(0 0 100% 0); filter: brightness(0) contrast(500%) invert(1); transform: rotateY(180deg) scale(0.1); opacity: 0; }
+    15% { clip-path: inset(0 0 0 0); filter: brightness(10) contrast(300%) invert(0); transform: rotateY(180deg) scale(2); opacity: 1; }
+    30% { transform: rotateY(180deg) skewX(45deg) scale(0.8); }
+    45% { transform: rotateY(180deg) skewX(-45deg) scale(1.5); box-shadow: 0 0 300px #00ffff; }
+    100% { filter: brightness(1); transform: rotateY(180deg) scale(1.08); clip-path: inset(0 0 0 0); opacity: 1; }
+}
+.anim-cyber-godly { animation: cyberGodly 2.2s cubic-bezier(.17,.67,.83,.67) forwards, sparkleGlow 2s ease-in-out infinite; }
+
+@keyframes godlyBody {
+    0% { background: #000; }
+    20% { background: #00ffff; filter: brightness(2); }
+    100% { background: radial-gradient(circle at center, rgba(0,255,255,0.2), #000); }
+}
+.godly-body { animation: godlyBody 4s forwards; }
+
+@keyframes ultimateBody {
+    0% { background: #000; }
+    30% { background: #800080; filter: contrast(150%); }
+    100% { background: radial-gradient(circle at center, rgba(128,0,128,0.2), #000); }
+}
+.ultimate-body { animation: ultimateBody 3.5s forwards; }
+
+@keyframes mythicBody {
+    0% { background: #000; }
+    25% { background: #ffff00; filter: brightness(1.5); }
+    100% { background: radial-gradient(circle at center, rgba(255,255,0,0.2), #000); }
+}
+.mythic-body { animation: mythicBody 3s forwards; }
+
+@keyframes foilAnim { 0% { background-position: 250% 250%; } 100% { background-position: -150% -150%; } }
+.foil-layer {
+    position: absolute; inset: 0;
+    background: linear-gradient(125deg, transparent 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.4) 55%, transparent 100%);
+    background-size: 250% 250%; mix-blend-mode: overlay; z-index: 5; pointer-events: none;
+    animation: foilAnim 4s linear infinite;
+}
+
 @keyframes glow {
     from { box-shadow: 0 0 20px #00f2ff, inset 0 0 20px rgba(0,242,255,0.1); }
     to   { box-shadow: 0 0 40px #ff00ff, inset 0 0 40px rgba(255,0,255,0.1); }
@@ -279,6 +337,20 @@ button:active { transform: translateY(0); }
 @keyframes megaFloat  { 0%,100% { filter: drop-shadow(0 0 50px #ff6ecc) drop-shadow(0 0 100px rgba(255,110,204,.8)); } 50% { filter: drop-shadow(0 0 100px #fff) drop-shadow(0 0 200px #00ffff); } }
 .card-front.anim-mega-mate { animation: glowMega 1s ease-in-out infinite alternate; border: 3px solid #ff6ecc; }
 @keyframes glowMega { from { box-shadow: 0 0 50px #ff6ecc, inset 0 0 30px rgba(255,110,204,.5); } to { box-shadow: 0 0 100px #fff, inset 0 0 80px #00ffff; } }
+
+/* Particle Styles */
+.particle {
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    animation: particleOut 1.5s ease-out forwards;
+}
+@keyframes particleOut {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0); opacity: 0; }
+}
 
 /* =============================================
    3D VIEWER OVERLAY
@@ -465,7 +537,7 @@ button:active { transform: translateY(0); }
 
 const cards = [
     { name_en: "anano",          name_ka: "ანანო",              rarity: "COMMON",    color: "#f0c040", image: "662170083_1490511509297584_7921407953045708354.jpg" },
-    { name_en: "elene bokveri",  name_ka: "ელენე ბოქვერი",      rarity: "UNCOMMON",  color: "#4ecdc4", image: "651267824_1495623969012841_63837904079999546.jpg" },
+    { name_en: "elene bokveri",  name_ka: "ელენე ბოკვერი",      rarity: "UNCOMMON",  color: "#4ecdc4", image: "651267824_1495623969012841_63837904079999546.jpg" },
     { name_en: "cool babai",     name_ka: "ქულ ბაბაი",          rarity: "RARE",      color: "#ff9f1c", image: "cool babai.jpg" },
     { name_en: "babai",          name_ka: "ბაბაი",              rarity: "ULTRA",     color: "#74b9ff", image: "babai.jpg" },
     { name_en: "qurdi mari",     name_ka: "ქურდი მარი",         rarity: "COMMON",    color: "#7c82ff", image: "qurdimari.jpg" },
@@ -473,19 +545,23 @@ const cards = [
     { name_en: "twin Mari",      name_ka: "ტყუპი მარი",         rarity: "RARE",      color: "#ffba3b", image: "mari.jpg" },
     { name_en: "mini nini",      name_ka: "მინი ნინი",          rarity: "EPIC",      color: "#54d2ff", image: "nini.jpg" },
     { name_en: "double wveri",   name_ka: "ორმაგი წვერი",       rarity: "UNCOMMON",  color: "#d477ff", image: "wveri.jpg" },
-    { name_en: "legend MATE",    name_ka: "ლეგენდარული მათე",   rarity: "LEGENDARY", color: "#ff6ecc", image: "MATE.jpg" }
+    { name_en: "legend MATE",    name_ka: "ლეგენდარული მათე",   rarity: "LEGENDARY", color: "#ff6ecc", image: "MATE.jpg" },
+    { name_en: "mini nika", name_ka: "მინი ნიკა",     rarity: "MYTHIC",    color: "#ffff00", image: "mini_nika.jpg" },
+    { name_en: "nini dzagnidze",  name_ka: "ნინი ძაგნიძე",       rarity: "ULTIMATE",  color: "#800080", image: "nini_dzagnidze.jpg" },
+    { name_en: "nika mestu",      name_ka: "ნიკა მესტუ",         rarity: "GODLY",     color: "#00ffff", image: "nika_mestu.jpg" }
 ];
 
 const cardAnimations = [
     'anim-anano','anim-twin-mari','anim-dog','anim-babai','anim-qurdi-mari',
-    'anim-luka','anim-mari','anim-nini','anim-photo1','anim-mega-mate'
+    'anim-luka','anim-mari','anim-nini','anim-photo1','anim-mega-mate', 'anim-nature-mythic', 'anim-void-ultimate', 'anim-cyber-godly'
 ];
 
 let library = [];
 let audioCtx;
 let cardState = 'closed';
 let currentUser = null;
-let cardWeights = [13, 16, 7, 13, 16, 7, 6, 10, 10, 2];
+let cardWeights = [12.1, 16, 7, 13, 16, 7, 6, 10, 10, 2, 0.5, 0.3, 0.1];
+let forcedHatchIndex = null;
 let isAdmin = false;
 let currentLang = 'en';
 
@@ -513,7 +589,8 @@ const translations = {
         summonTitle: "Summon Cards", userAccounts: "User Accounts", loadingAccounts: "Loading accounts...",
         view3D: "3D View", drop: "Drop", viewerInstructions: "Drag to rotate 360°",
         tapToOpen: "TAP TO OPEN", chance: "chance", enterAdminPass: "Enter admin password:",
-        adminUnlocked: "Admin unlocked!"
+        adminUnlocked: "Admin unlocked!", giftCard: "Gift Card", giftSuccess: "Gifted successfully!",
+        nextHatch: "Guaranteed Next Hatch", setHatch: "Set Next Card", hatchSet: "Next hatch is set!"
     },
     ka: {
         loginTitle: "ბარათის თამაშის შესვლა", username: "მომხმარებლის სახელი", password: "პაროლი",
@@ -525,7 +602,8 @@ const translations = {
         summonTitle: "ბარათების გამოძახება", userAccounts: "მომხმარებლების ანგარიშები", loadingAccounts: "ანგარიშების ჩატვირთვა...",
         view3D: "3D ნახვა", drop: "დაბრუნება", viewerInstructions: "გასწორეთ და მოატრიალეთ 360°",
         tapToOpen: "დააჭირეთ გასახსნელად", chance: "შანსი", enterAdminPass: "შეიყვანეთ ადმინის პაროლი:",
-        adminUnlocked: "ადმინი გახსნილია!"
+        adminUnlocked: "ადმინი გახსნილია!", giftCard: "ბარათის ჩუქება", giftSuccess: "წარმატებით გაიგზავნა!",
+        nextHatch: "შემდეგი გარანტირებული ბარათი", setHatch: "დაყენება", hatchSet: "შემდეგი ბარათი დაყენებულია!"
     }
 };
 
@@ -543,7 +621,7 @@ function init() {
         if (e.key === 'Escape') closeViewer();
         if (e.shiftKey && e.key === '~') {
             const pass = prompt(translations[currentLang].enterAdminPass);
-            if (pass === '361') {
+            if (pass === 'mateg5') {
                 isAdmin = true;
                 if (document.getElementById('game').style.display !== 'none') {
                     document.getElementById('adminPanel').style.display = 'block';
@@ -605,6 +683,7 @@ function showGame() {
     document.getElementById('game').style.display = window.innerWidth <= 900 ? 'flex' : 'grid';
     const userNameEl = document.getElementById('userName');
     if (userNameEl) userNameEl.innerText = currentUser;
+    checkNotifications();
     updateChances();
     if ((currentUser && currentUser.toLowerCase() === 'duck') || isAdmin) {
         document.getElementById('adminPanel').style.display = 'block';
@@ -698,7 +777,7 @@ function showCardViewer(cardIndex) {
     if (!card) return;
 
     const viewerImg = document.getElementById('viewerImage');
-    viewerImg.src = card.image;
+    viewerImg.src = encodeURI(card.image);
     if (card.name_en === "cool babai") {
         viewerImg.style.objectPosition = "top";
     } else if (["anano", "qurdi mari"].includes(card.name_en)) {
@@ -765,6 +844,11 @@ function initViewerGesture() {
 }
 
 function getWeightedRandomCard() {
+    if (forcedHatchIndex !== null) {
+        const idx = forcedHatchIndex;
+        forcedHatchIndex = null;
+        return { card: cards[idx], index: idx };
+    }
     const total = cardWeights.reduce((a, b) => a + b, 0);
     let rand = Math.random() * total;
     for (let i = 0; i < cards.length; i++) {
@@ -794,6 +878,37 @@ function playSound(type) {
     } catch(e) {}
 }
 
+function createParticles(type) {
+    const card = document.getElementById('card');
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const count = type === 'godly' ? 120 : 80;
+    const colors = {
+        'mythic': ['#ffff00', '#ffaa00', '#ffffff', '#ffee00'],
+        'ultimate': ['#800080', '#4b0082', '#000000', '#ff00ff'],
+        'godly': ['#00ffff', '#ffffff', '#0088ff', '#0044ff']
+    };
+
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const color = colors[type][Math.floor(Math.random() * colors[type].length)];
+        p.style.backgroundColor = color;
+        if (type === 'godly') p.style.borderRadius = '0'; // Square digital shards
+        
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 150 + Math.random() * 300;
+        p.style.setProperty('--x', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--y', Math.sin(angle) * dist + 'px');
+        
+        p.style.left = (centerX + window.scrollX) + 'px';
+        p.style.top = (centerY + window.scrollY) + 'px';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1500);
+    }
+}
+
 function openCard() {
     if (cardState !== 'closed') return;
     cardState = 'opening';
@@ -812,7 +927,8 @@ function openCard() {
     cardFront.classList.add(animClass);
 
     const frontImage = document.getElementById("frontImage");
-    frontImage.src = reward.image;
+    frontImage.src = encodeURI(reward.image);
+    frontImage.onerror = function() { this.style.display = 'none'; console.error("Missing image:", reward.image); };
     if (reward.name_en === "cool babai") {
         frontImage.style.objectPosition = "top";
     } else if (["anano", "qurdi mari"].includes(reward.name_en)) {
@@ -828,17 +944,43 @@ function openCard() {
     cardFront.style.borderColor = reward.color;
     cardFront.style.boxShadow = `0 0 40px ${reward.color}40, inset 0 0 20px ${reward.color}20`;
 
-    const isLegendary = reward.rarity === 'LEGENDARY';
-    const isRare = ['RARE', 'EPIC', 'MYTHIC', 'ULTRA'].includes(reward.rarity);
+    const isLegendary = ['LEGENDARY', 'GODLY'].includes(reward.rarity);
+    const isRare = ['RARE', 'EPIC', 'MYTHIC', 'ULTRA', 'ULTIMATE'].includes(reward.rarity);
 
-    if (isLegendary) {
+    if (reward.rarity === 'GODLY') {
+        card.classList.add("mega-reveal");
+        document.body.classList.add("godly-body");
+        createParticles('godly');
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 500]);
+        setTimeout(() => { card.classList.remove("mega-reveal"); }, 4000);
+    } else if (reward.rarity === 'ULTIMATE') {
+        card.classList.add("rare-reveal");
+        document.body.classList.add("ultimate-body");
+        createParticles('ultimate');
+        if (navigator.vibrate) navigator.vibrate(100);
+        setTimeout(() => { card.classList.remove("rare-reveal"); }, 3500);
+    } else if (reward.rarity === 'MYTHIC') {
+        card.classList.add("rare-reveal");
+        document.body.classList.add("mythic-body");
+        createParticles('mythic');
+        if (navigator.vibrate) navigator.vibrate(100);
+        setTimeout(() => { card.classList.remove("rare-reveal"); }, 3000);
+    } else if (isLegendary) {
         card.classList.add("mega-reveal");
         document.body.classList.add("mega-body");
+        if (navigator.vibrate) navigator.vibrate(200);
         setTimeout(() => { card.classList.remove("mega-reveal"); document.body.classList.remove("mega-body"); }, 3500);
     } else if (isRare) {
         card.classList.add("rare-reveal");
         document.body.classList.add("rare-body");
+        if (navigator.vibrate) navigator.vibrate(100);
         setTimeout(() => { card.classList.remove("rare-reveal"); document.body.classList.remove("rare-body"); }, 2000);
+    }
+
+    if (['MYTHIC', 'ULTIMATE', 'GODLY'].includes(reward.rarity)) {
+        const foil = document.createElement('div');
+        foil.className = 'foil-layer';
+        cardFront.appendChild(foil);
     }
 
     library.push(reward);
@@ -868,12 +1010,14 @@ function resetCard() {
         card.classList.remove("open", "closing", "rare-reveal", "mega-reveal");
         clearCardAnimations(cardFront);
         card.style.pointerEvents = "";
-        document.body.classList.remove("reveal", "rare-body", "mega-body");
+        document.body.classList.remove("reveal", "rare-body", "mega-body", "godly-body", "ultimate-body", "mythic-body");
         document.getElementById("frontName").innerText = translations[currentLang].tapToOpen;
         document.getElementById("frontName").style.color = "";
         document.getElementById("frontRarity").innerText = "";
         cardFront.style.borderColor = "";
         cardFront.style.boxShadow = "";
+        const foil = cardFront.querySelector('.foil-layer');
+        if (foil) foil.remove();
         const frontImage = document.getElementById("frontImage");
         frontImage.src = "";
         frontImage.style.display = "none";
@@ -882,7 +1026,7 @@ function resetCard() {
 
 function clearCardAnimations(el) {
     if (!el) return;
-    el.classList.remove('anim-anano','anim-twin-mari','anim-dog','anim-babai','anim-qurdi-mari','anim-luka','anim-mari','anim-nini','anim-photo1','anim-photo2','anim-mega-mate');
+    el.classList.remove('anim-anano','anim-twin-mari','anim-dog','anim-babai','anim-qurdi-mari','anim-luka','anim-mari','anim-nini','anim-photo1','anim-photo2','anim-mega-mate', 'anim-flarePulse', 'anim-sparkleGlow', 'anim-mystic', 'anim-divine', 'anim-godly', 'anim-nature-mythic', 'anim-void-ultimate', 'anim-cyber-godly');
 }
 
 function updateChances() {
@@ -904,14 +1048,30 @@ function updateChances() {
 function updateAdminSummon() {
     const summonDiv = document.getElementById('summonButtons');
     if (!summonDiv) return;
-    summonDiv.innerHTML = '';
+    summonDiv.innerHTML = `<div style="grid-column: 1/-1; margin-bottom:10px;">
+        <label style="font-size:12px; opacity:0.7;">${translations[currentLang].nextHatch}:</label>
+        <select id="forcedHatchSelect" style="width:100%; padding:5px; background:#222; color:white; border-radius:5px; margin-top:5px;"></select>
+        <button onclick="setForcedHatch()" style="font-size:11px; padding:5px; margin-top:5px;">${translations[currentLang].setHatch}</button>
+    </div>`;
+    
+    const select = document.getElementById('forcedHatchSelect');
     cards.forEach((card, i) => {
+        const option = document.createElement('option');
+        option.value = i;
+        option.innerText = card['name_' + currentLang];
+        select.appendChild(option);
+
         const btn = document.createElement('button');
         btn.innerText = card['name_' + currentLang];
         btn.style.cssText = `background: ${card.color}; color: black; font-size: 11px; padding: 8px; margin: 0; box-shadow: none; width: 100%;`;
         btn.onclick = () => adminSummon(i);
         summonDiv.appendChild(btn);
     });
+}
+
+function setForcedHatch() {
+    forcedHatchIndex = parseInt(document.getElementById('forcedHatchSelect').value);
+    alert(translations[currentLang].hatchSet);
 }
 
 function adminSummon(index) {
@@ -924,22 +1084,72 @@ function adminSummon(index) {
 function updateAdminAccounts() {
     const accountList = document.getElementById('accountList');
     if (!accountList) return;
-    const accounts = [];
+    const users = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key && key.startsWith('password_')) {
-            accounts.push({ user: key.slice('password_'.length), pass: localStorage.getItem(key) });
+            users.push(key.slice('password_'.length));
         }
     }
-    accounts.push({ user: 'duck', pass: 'duckman' });
-    accounts.sort((a, b) => a.user.localeCompare(b.user));
+    users.push('duck');
+    users.sort();
+
     accountList.innerHTML = '';
-    accounts.forEach(account => {
-        const line = document.createElement('div');
-        line.innerText = `${account.user}: ${account.pass}`;
-        line.style.cssText = 'border-bottom:1px solid rgba(255,255,255,0.1);padding:4px 0;';
-        accountList.appendChild(line);
+    users.forEach(user => {
+        const pass = localStorage.getItem('password_' + user) || (user === 'duck' ? 'duckman' : '???');
+        const div = document.createElement('div');
+        div.style.cssText = 'border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0; display:flex; flex-direction:column; gap:5px;';
+        div.innerHTML = `
+            <div style="display:flex; justify-content:space-between;">
+                <strong>${user}</strong> <span>Pass: ${pass}</span>
+            </div>
+            <div style="display:flex; gap:5px;">
+                <select id="giftSelect_${user}" style="flex:1; font-size:11px; background:#111; color:white; border:1px solid #444; border-radius:4px;"></select>
+                <button onclick="giftCard('${user}')" style="width:auto; padding:4px 8px; font-size:10px;">${translations[currentLang].giftCard}</button>
+            </div>
+        `;
+        accountList.appendChild(div);
+        
+        const select = document.getElementById(`giftSelect_${user}`);
+        cards.forEach((c, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.innerText = c['name_' + currentLang];
+            select.appendChild(opt);
+        });
     });
+}
+
+function giftCard(targetUser) {
+    const cardIdx = document.getElementById(`giftSelect_${targetUser}`).value;
+    const card = cards[cardIdx];
+    
+    // Update target user's library
+    const targetLibKey = 'library_' + targetUser;
+    let targetLib = JSON.parse(localStorage.getItem(targetLibKey) || '[]');
+    targetLib.push(card);
+    localStorage.setItem(targetLibKey, JSON.stringify(targetLib));
+    
+    // Add notification
+    const targetNotifKey = 'notifications_' + targetUser;
+    let notifs = JSON.parse(localStorage.getItem(targetNotifKey) || '[]');
+    notifs.push({ cardName: card['name_' + currentLang] });
+    localStorage.setItem(targetNotifKey, JSON.stringify(notifs));
+    
+    alert(translations[currentLang].giftSuccess);
+}
+
+function checkNotifications() {
+    if (!currentUser) return;
+    const notifKey = 'notifications_' + currentUser;
+    const notifs = JSON.parse(localStorage.getItem(notifKey) || '[]');
+    if (notifs.length > 0) {
+        notifs.forEach(n => {
+            alert(`🎁 Gift Received! You got: ${n.cardName}`);
+        });
+        localStorage.removeItem(notifKey);
+        loadLibrary(); // Refresh the user's view
+    }
 }
 
 window.onload = init;
