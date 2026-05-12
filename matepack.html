@@ -546,7 +546,7 @@ const cards = [
     { name_en: "mini nini",      name_ka: "მინი ნინი",          rarity: "EPIC",      color: "#54d2ff", image: "nini.jpg" },
     { name_en: "double wveri",   name_ka: "ორმაგი წვერი",       rarity: "UNCOMMON",  color: "#d477ff", image: "wveri.jpg" },
     { name_en: "legend MATE",    name_ka: "ლეგენდარული მათე",   rarity: "LEGENDARY", color: "#ff6ecc", image: "MATE.jpg" },
-    { name_en: "mini nika", name_ka: "მინი ნიკა",     rarity: "MYTHIC",    color: "#ffff00", image: "mini_nika.jpg" },
+    { name_en: "mini nika",      name_ka: "მინი ნიკა",          rarity: "MYTHIC",    color: "#ffff00", image: "mini_nika.jpg" },
     { name_en: "nini dzagnidze",  name_ka: "ნინი ძაგნიძე",       rarity: "ULTIMATE",  color: "#800080", image: "nini_dzagnidze.jpg" },
     { name_en: "nika mestu",      name_ka: "ნიკა მესტუ",         rarity: "GODLY",     color: "#00ffff", image: "nika_mestu.jpg" }
 ];
@@ -559,8 +559,8 @@ const cardAnimations = [
 let library = [];
 let audioCtx;
 let cardState = 'closed';
-let currentUser = null;
-let cardWeights = [12.1, 16, 7, 13, 16, 7, 6, 10, 10, 2, 0.5, 0.3, 0.1];
+let currentUser = null; // Changed to null for initial state
+let cardWeights = [12.85, 16, 7, 13, 16.75, 7, 6, 10, 10, 0.5, 0.5, 0.3, 0.1]; // MATE 0.5%, anano +0.75, qurdi mari +0.75
 let forcedHatchIndex = null;
 let isAdmin = false;
 let currentLang = 'en';
